@@ -1,0 +1,13 @@
+<ul>
+    <li><a href="{{ path('app_home_index') }}">Index</a></li>
+    {% if is_granted('ROLE_ADMIN') %}
+
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') %}
+        <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+        <li>I am {{ app.user.email }}</li>
+    {% else %}
+        <li><a href="{{ path('login') }}">Connexion</a></li>
+    {% endif %}
+</ul>
