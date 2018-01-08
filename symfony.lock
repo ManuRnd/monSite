@@ -107,6 +107,9 @@
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
     },
+    "symfony/asset": {
+        "version": "v3.4.3"
+    },
     "symfony/browser-kit": {
         "version": "v4.0.2"
     },
@@ -271,6 +274,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.0.2"
+    },
+    "symfony/thanks": {
+        "version": "v1.0.0"
     },
     "symfony/translation": {
         "version": "3.3",

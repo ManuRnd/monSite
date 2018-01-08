@@ -4,14 +4,13 @@
 {% block body %}
 
     <h2>index article</h2>
-    <a href="{{ path('app_article_index', {'option': 'updatedAt'}) }}">Récent</a>
-    <a href="{{ path('app_article_index', {'option': 'hitcount'}) }}">vue</a>
     <p>trier par :</p>
     <FORM>
-        <SELECT name="option" size="1">
-            <OPTION><a href="{{ path('app_article_index', {'option': 'updatedAt'}) }}">Récent</a></OPTION>
-            <OPTION ><a href="{{ path('app_article_index', {'option': 'hitcount'}) }}">vue</a></OPTION>
-        </SELECT>
+        <select name="forma" onchange="location = this.value;">
+            <option>Trier par</option>
+            <option value="{{ path('app_article_index', {"option":"hitcount"}) }}">Popularité</option>
+            <option value="{{ path('app_article_index', {"option":"updatedAt"}) }}">Date de sortie</option>
+        </select>
     </FORM>
 
     <ul>

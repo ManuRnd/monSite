@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="tp_user")
+ * @ORM\Table(name="user")
  * @UniqueEntity("email")
  */
 class User implements UserInterface, \Serializable
