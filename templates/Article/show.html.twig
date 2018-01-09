@@ -3,23 +3,13 @@
 
 {% block body %}
 
-    <h2>index article</h2>
-    <p>trier par :</p>
-    <FORM>
-        <select name="forma" onchange="location = this.value;">
-            <option>Trier par</option>
-            <option value="{{ path('app_article_index', {"option":"hitcount"}) }}">Popularité</option>
-            <option value="{{ path('app_article_index', {"option":"updatedAt"}) }}">Date de sortie</option>
-        </select>
-    </FORM>
 
     <ul>
-        {% for article in articles %}
             <li>
 
                     <h6>{{ article.title}}</h6>
             </li>
-        {% endfor %}
+
     </ul>
 
 {% endblock %}

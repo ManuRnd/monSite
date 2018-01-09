@@ -1,27 +1,34 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: manuel
- * Date: 24/12/17
- * Time: 16:36
+ * User: manuel.renaudineau
+ * Date: 20/12/17
+ * Time: 09:34
  */
 
 namespace App\Form;
 
 
 use App\Entity\Article;
+use App\Entity\Media;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ArticleType extends AbstractType
 {
     protected $token;
+    protected $media;
+
 
     public function __construct(TokenStorageInterface $storage)
     {
@@ -33,7 +40,7 @@ class ArticleType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => Article::class,
-                ]
+            ]
         );
     }
 
@@ -41,9 +48,43 @@ class ArticleType extends AbstractType
     {
 
         $builder
-            ->add("title", TextType::class)
-            ->add("content", TextType::class)
-            ->add("techno", TextType::class)
+            ->add("title",TextType::class, ['label' => 'Titre',
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'title',
+                    'type' => 'text'
+                ]
+            ])
+            ->add("title",TextType::class, ['label' => 'titre',
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'title',
+                    'rows' => '5'
+                ]
+            ])
+            ->add("content",TextareaType::class, ['label' => 'Content',
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'content',
+                    'rows' => '10'
+                ]
+            ])
+            ->add("techno",TextType::class, ['label' => 'technologie',
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'techno',
+                    'rows' => '5'
+                ]
+            ])
+            ->add('media', FileType::class, [
+                "mapped"=>false,
+                'label' => 'Media',
+                'attr' => [
+                    'type' => 'file',
+                    'class' => 'form-control',
+                    'id' => 'media'
+                ]
+            ])
             ->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData'])->getForm();
     }
 
@@ -54,7 +95,12 @@ class ArticleType extends AbstractType
 
         if($article->getId() === null){
             $article->setUser($this->token->getToken()->getUser());
-            $form->add("save", SubmitType::class, ["label" => "Créer"]);
+            $form->add("save", SubmitType::class, ["label" => "Créer",
+                'attr' => [
+                    'class' => 'btn btn-primary',
+                    'type' => 'submit'
+                ]
+            ]);
         } else{
             $form->add("save", SubmitType::class, ["label" => "Modifier"]);
         }

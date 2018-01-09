@@ -28,6 +28,9 @@ services:
     # please note that last definitions always *replace* previous ones
 
 
+    App\Entity\User:
+        public: true
+
     App\Entity\Article:
         public: true
 
@@ -35,4 +38,13 @@ services:
         public: true
 
     App\EventListener\ArticleSubscriber:
+        public: true
+
+    App\Entity\Media:
+        public: true
+
+    App\Event\MediaEvent:
+        public: true
+
+    App\EventListener\MediaSubscriber:
         public: true

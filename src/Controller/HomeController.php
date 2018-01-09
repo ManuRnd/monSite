@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -15,11 +16,17 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('Home/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em->getRepository(Article::class)->findBy([],["updatedAt" => "desc"]);
+        return $this->render('Home/index.html.twig', ['articles' => $articles]);
     }
 
     /**
      * @Route(path="/contact",name="app_contact")
      */
+    public function showAction(){
+        return $this->render('Home/contact.html.twig');
+    }
 
 }
